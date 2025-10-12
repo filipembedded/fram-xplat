@@ -1,6 +1,6 @@
 /**
  * @file fram.c
- * @brief FRAM low-level driver 
+ * @brief FRAM cross-platform driver 
  * @author Filip Stojanovic
  */
 

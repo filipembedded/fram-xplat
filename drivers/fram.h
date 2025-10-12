@@ -1,6 +1,6 @@
 /**
  * @file fram.h 
- * @brief FRAM low-level driver 
+ * @brief FRAM cross-platform driver 
  * @author Filip Stojanovic
  */
 
@@ -28,26 +28,45 @@ typedef enum {
     FRAM_STATUS_TIMEOUT = -2,
 } FRAM_Status_TypeDef;
 
-
-
 /**
  * @brief FRAM Instance
  * @note The FRAM instance struct, consists of functions pointers passed by
- *       a layer bellow - platform-level-drivers and FRAM memory specs 
+ *       a layer bellow - port layer and FRAM memory specs 
  */
 typedef struct {
     void *context;
     uint16_t capacity_mbit;
     uint16_t max_bus_speed_mhz;
-    //NOTE: Put down platform-level function pointers
     int(*spi_write)(void *context, uint8_t *data, uint16_t size);
     int(*spi_read)(void *context, uint8_t *data, uint16_t size);
     int(*spi_chip_select)(void *context);
     int(*spi_chip_deselect)(void *context);
 } FRAM_Instance_TypeDef;
 
+/**
+ * @brief Writes data to specified address
+ * @param fram Pointer to the fram instance
+ * @param address Pointer to the address to write to
+ * @param data Pointer to the data buffer
+ * @param size Data size
+ * @retval ::FRAM_Status_TypeDef
+ */
 FRAM_Status_TypeDef FRAM_Write(FRAM_Instance_TypeDef *fram, uint8_t *address, uint8_t *data, uint16_t size);
 
+/**
+ * @brief Reads data from a specified address
+ * @param fram Pointer to the fram instance
+ * @param address Pointer to the address to read from
+ * @param data Pointer to the data buffer
+ * @param size Data size
+ * @retval ::FRAM_Status_TypeDef
+ */
 FRAM_Status_TypeDef FRAM_Read(FRAM_Instance_TypeDef *fram, uint8_t *address, uint8_t *data, uint16_t size);
 
+/**
+ * @brief Reads contents of Status Register
+ * @param fram Pointer to the fram instance
+ * @param data Pointer to the data buffer
+ * @retval ::FRAM_Status_TypeDef
+ */
 FRAM_Status_TypeDef FRAM_ReadStatusReg(FRAM_Instance_TypeDef *fram, uint8_t data);
