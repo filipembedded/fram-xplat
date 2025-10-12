@@ -6,11 +6,6 @@
 
 #include "port_stm32.h"
 
-typedef struct {
-    GPIO_TypeDef *cs_port;
-    uint16_t cs_pin;
-} GPIO_CS_Config;
-
 int spi_write(SPI_HandleTypeDef *hspi, uint8_t *data, uint16_t size) {
     HAL_StatusTypeDef status = HAL_SPI_Transmit(hspi, data, size, SPI_TIMEOUT_MS);
     if (status != HAL_OK) {
