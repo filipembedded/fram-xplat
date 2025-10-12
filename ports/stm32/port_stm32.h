@@ -4,6 +4,8 @@
  * @author Filip Stojanovic
  */
 
+#include "stm32f4xx_hal.h"
+
 #define SPI_TIMEOUT_MS 50
 
 int spi_write(SPI_HandleTypeDef *hspi, uint8_t *data, uint16_t size);

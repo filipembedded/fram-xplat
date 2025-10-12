@@ -4,10 +4,10 @@
  * @author Filip Stojanovic
  */
 
-#include "stm32f4xx_hal.h"
+#include "port_stm32.h"
 
 typedef struct {
-    GPIO_TypeDef cs_port;
+    GPIO_TypeDef *cs_port;
     uint16_t cs_pin;
 } GPIO_CS_Config;
 
@@ -28,17 +28,11 @@ int spi_read(SPI_HandleTypeDef *hspi, uint8_t *data, uint16_t size) {
 }
 
 int spi_chip_select(GPIO_CS_Config *gpio) {
-    HAL_StatusTypeDef status = HAL_GPIO_WritePin(gpio->cs_port, gpio->cs_pin, GPIO_PIN_RESET);
-    if (status != HAL_OK) {
-        return -1;
-    }
+    HAL_GPIO_WritePin(gpio->cs_port, gpio->cs_pin, GPIO_PIN_RESET);
     return 0;
 }
 
 int spi_chip_deselect(GPIO_CS_Config *gpio) {
-    HAL_StatusTypeDef status = HAL_GPIO_WritePin(gpio->cs_port, gpio->cs_pin, GPIO_PIN_SET);
-    if (status != HAL_OK) {
-        return -1;
-    }
+    HAL_GPIO_WritePin(gpio->cs_port, gpio->cs_pin, GPIO_PIN_SET);
     return 0;
 }
