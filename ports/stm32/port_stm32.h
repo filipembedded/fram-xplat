@@ -13,10 +13,10 @@ typedef struct {
     uint16_t cs_pin;
 } GPIO_CS_Config;
 
-int spi_write(SPI_HandleTypeDef *hspi, uint8_t *data, uint16_t size);
+int spi_write(void *context, uint8_t *data, uint16_t size);
 
-int spi_read(SPI_HandleTypeDef *hspi, uint8_t *data, uint16_t size);
+int spi_read(void *context, uint8_t *data, uint16_t size);
 
-int spi_chip_select(GPIO_CS_Config *gpio);
+int spi_chip_select(void *context);
 
-int spi_chip_deselect(GPIO_CS_Config *gpio);
+int spi_chip_deselect(void *context);
