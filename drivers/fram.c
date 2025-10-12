@@ -1,10 +1,10 @@
 /**
- * @file fram_ll.c
+ * @file fram.c
  * @brief FRAM low-level driver 
  * @author Filip Stojanovic
  */
 
-#include "fram_ll.h"
+#include "fram.h"
 
 FRAM_Status_TypeDef FRAM_Write(FRAM_Instance_TypeDef *fram, uint8_t *address, uint8_t *data, uint16_t size) {
     FRAM_Status_TypeDef status = FRAM_STATUS_SUCCESS;

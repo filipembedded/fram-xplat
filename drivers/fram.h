@@ -1,5 +1,5 @@
 /**
- * @file fram_ll.h 
+ * @file fram.h 
  * @brief FRAM low-level driver 
  * @author Filip Stojanovic
  */
