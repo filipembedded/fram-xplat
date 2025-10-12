@@ -4,7 +4,7 @@
  * @author Filip Stojanovic
  */
 
-#include <stdlib.h>
+#include <stdint.h>
 
 /**
  * @brief FRAM Opcodes
