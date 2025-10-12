@@ -5,6 +5,7 @@
  */
 
 #include <stdint.h>
+#include <stddef.h>
 
 /**
  * @brief FRAM Opcodes
