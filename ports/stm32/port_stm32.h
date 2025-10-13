@@ -9,9 +9,10 @@
 #define SPI_TIMEOUT_MS 50
 
 typedef struct {
+    SPI_HandleTypeDef *hspi;
     GPIO_TypeDef *cs_port;
     uint16_t cs_pin;
-} GPIO_CS_Config;
+} PortContext_TypeDef;
 
 int spi_write(void *context, uint8_t *data, uint16_t size);
 

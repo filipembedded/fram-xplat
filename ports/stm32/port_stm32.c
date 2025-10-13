@@ -7,9 +7,9 @@
 #include "port_stm32.h"
 
 int spi_write(void *context, uint8_t *data, uint16_t size) {
-    SPI_HandleTypeDef *hspi = (SPI_HandleTypeDef *)context;
-    
-    HAL_StatusTypeDef status = HAL_SPI_Transmit(hspi, data, size, SPI_TIMEOUT_MS);
+    PortContext_TypeDef *port_context = (PortContext_TypeDef *)context;
+
+    HAL_StatusTypeDef status = HAL_SPI_Transmit(port_context->hspi, data, size, SPI_TIMEOUT_MS);
     if (status != HAL_OK) {
         return -1;
     }
@@ -17,9 +17,9 @@ int spi_write(void *context, uint8_t *data, uint16_t size) {
 }
 
 int spi_read(void *context, uint8_t *data, uint16_t size) {
-    SPI_HandleTypeDef *hspi = (SPI_HandleTypeDef *)context;
+    PortContext_TypeDef *port_context = (PortContext_TypeDef *)context;
 
-    HAL_StatusTypeDef status = HAL_SPI_Receive(hspi, data, size, SPI_TIMEOUT_MS);
+    HAL_StatusTypeDef status = HAL_SPI_Receive(port_context->hspi, data, size, SPI_TIMEOUT_MS);
     if (status != HAL_OK) {
         return -1;
     }
@@ -27,13 +27,14 @@ int spi_read(void *context, uint8_t *data, uint16_t size) {
 }
 
 int spi_chip_select(void *context) {
-    GPIO_CS_Config *gpio = (GPIO_CS_Config *)context;
-    HAL_GPIO_WritePin(gpio->cs_port, gpio->cs_pin, GPIO_PIN_RESET);
+    PortContext_TypeDef *port_context = (PortContext_TypeDef *)context;
+
+    HAL_GPIO_WritePin(port_context->cs_port, port_context->cs_pin, GPIO_PIN_RESET);
     return 0;
 }
 
 int spi_chip_deselect(void *context) {
     GPIO_CS_Config *gpio = (GPIO_CS_Config *)context;
-    HAL_GPIO_WritePin(gpio->cs_port, gpio->cs_pin, GPIO_PIN_SET);
+    HAL_GPIO_WritePin(port_context->cs_port, port_context->cs_pin, GPIO_PIN_SET);
     return 0;
 }
