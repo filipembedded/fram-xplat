@@ -28,13 +28,12 @@ int spi_read(void *context, uint8_t *data, uint16_t size) {
 
 int spi_chip_select(void *context) {
     PortContext_TypeDef *port_context = (PortContext_TypeDef *)context;
-
     HAL_GPIO_WritePin(port_context->cs_port, port_context->cs_pin, GPIO_PIN_RESET);
     return 0;
 }
 
 int spi_chip_deselect(void *context) {
-    GPIO_CS_Config *gpio = (GPIO_CS_Config *)context;
+    PortContext_TypeDef *port_context = (PortContext_TypeDef *)context;
     HAL_GPIO_WritePin(port_context->cs_port, port_context->cs_pin, GPIO_PIN_SET);
     return 0;
 }
