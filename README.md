@@ -40,4 +40,5 @@ An example of a complete port implementation can be found under ```fram-xplat/po
 ## Demos
 A complete demo of the **fram-xplat** library running on the WeAct blackpill_f411ce board can be found in the following [repository](https://github.com/filipembedded/stm32-nvs-demos).
 
-
+## License
+This project is licensed under the BSD 3-Clause License — see the [LICENSE](LICENSE) file for details.
