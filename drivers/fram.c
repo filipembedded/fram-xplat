@@ -6,7 +6,7 @@
 
 #include "fram.h"
 
-FRAM_Status_TypeDef FRAM_Write(FRAM_Instance_TypeDef *fram, uint8_t *address, uint8_t *data, uint16_t size) {
+FRAM_Status_TypeDef FRAM_Write(FRAM_Instance_TypeDef *fram, uint32_t address, uint8_t *data, uint16_t size) {
     FRAM_Status_TypeDef status = FRAM_STATUS_SUCCESS;
     uint8_t addr[3];
 
@@ -26,9 +26,9 @@ FRAM_Status_TypeDef FRAM_Write(FRAM_Instance_TypeDef *fram, uint8_t *address, ui
 
     // Write command and address
     cmd = FRAM_OPCODE_WRITE;
-    addr[0] = (uint8_t)((*address >> 16) & 0x07U); // Upper 5 bits ignored
-    addr[1] = (uint8_t)((*address >> 8) & 0xFFU);
-    addr[2] = (uint8_t)(*address & 0xFFU);
+    addr[0] = (uint8_t)((address >> 16) & 0x07U); // Upper 5 bits ignored
+    addr[1] = (uint8_t)((address >> 8) & 0xFFU);
+    addr[2] = (uint8_t)(address & 0xFFU);
 
     // Send Write sequence
     fram->spi_chip_select(fram->context);
@@ -50,7 +50,7 @@ FRAM_Status_TypeDef FRAM_Write(FRAM_Instance_TypeDef *fram, uint8_t *address, ui
     return status;
 }
 
-FRAM_Status_TypeDef FRAM_Read(FRAM_Instance_TypeDef *fram, uint8_t *address, uint8_t *data, uint16_t size) {
+FRAM_Status_TypeDef FRAM_Read(FRAM_Instance_TypeDef *fram, uint32_t address, uint8_t *data, uint16_t size) {
     FRAM_Status_TypeDef status = FRAM_STATUS_SUCCESS;
     uint8_t addr[3];
 
@@ -60,9 +60,9 @@ FRAM_Status_TypeDef FRAM_Read(FRAM_Instance_TypeDef *fram, uint8_t *address, uin
 
     // Read command and address
     uint8_t cmd = FRAM_OPCODE_READ;
-    addr[0] = (uint8_t)((*address >> 16) & 0x07U); // Upper 5 bits ignored
-    addr[1] = (uint8_t)((*address >> 8) & 0xFFU);
-    addr[2] = (uint8_t)(*address & 0xFFU);
+    addr[0] = (uint8_t)((address >> 16) & 0x07U); // Upper 5 bits ignored
+    addr[1] = (uint8_t)((address >> 8) & 0xFFU);
+    addr[2] = (uint8_t)(address & 0xFFU);
 
     // Send Read sequence
     fram->spi_chip_select(fram->context);

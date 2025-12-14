@@ -47,22 +47,22 @@ typedef struct {
 /**
  * @brief Writes data to specified address
  * @param fram Pointer to the fram instance
- * @param address Pointer to the address to write to
+ * @param address The address to write to
  * @param data Pointer to the data buffer
  * @param size Data size
  * @retval ::FRAM_Status_TypeDef
  */
-FRAM_Status_TypeDef FRAM_Write(FRAM_Instance_TypeDef *fram, uint8_t *address, uint8_t *data, uint16_t size);
+FRAM_Status_TypeDef FRAM_Write(FRAM_Instance_TypeDef *fram, uint32_t address, uint8_t *data, uint16_t size);
 
 /**
  * @brief Reads data from a specified address
  * @param fram Pointer to the fram instance
- * @param address Pointer to the address to read from
+ * @param address The address to read from
  * @param data Pointer to the data buffer
  * @param size Data size
  * @retval ::FRAM_Status_TypeDef
  */
-FRAM_Status_TypeDef FRAM_Read(FRAM_Instance_TypeDef *fram, uint8_t *address, uint8_t *data, uint16_t size);
+FRAM_Status_TypeDef FRAM_Read(FRAM_Instance_TypeDef *fram, uint32_t address, uint8_t *data, uint16_t size);
 
 /**
  * @brief Reads contents of Status Register
