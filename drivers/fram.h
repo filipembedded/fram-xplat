@@ -12,15 +12,15 @@
  * @note Provides list of opcodes used to interact with FRAM memory
  */
 typedef enum {
-    FRAM_OPCODE_WREN = 0b00000110, // Set write enable latch
-    FRAM_OPCODE_WRDI = 0b00000100, // Reset write enable latch
-    FRAM_OPCODE_RDSR = 0b00000101, // Read Status Register
-    FRAM_OPCODE_WRSR = 0b00000001, // Write Status Register
-    FRAM_OPCODE_READ = 0b00000011, // Read memory data
-    FRAM_OPCODE_FSTRD = 0b00001011, // Fast read memory data
-    FRAM_OPCODE_WRITE = 0b00000010, // Write memory data
-    FRAM_OPCODE_SLEEP = 0b10111001, // Enter sleep mode
-    FRAM_OPCODE_RDID = 0b10011111 // Read device ID
+    FRAM_OPCODE_WREN = 0x06, // Set write enable latch
+    FRAM_OPCODE_WRDI = 0x04, // Reset write enable latch
+    FRAM_OPCODE_RDSR = 0x05, // Read Status Register
+    FRAM_OPCODE_WRSR = 0x01, // Write Status Register
+    FRAM_OPCODE_READ = 0x03, // Read memory data
+    FRAM_OPCODE_FSTRD = 0x0B, // Fast read memory data
+    FRAM_OPCODE_WRITE = 0x02, // Write memory data
+    FRAM_OPCODE_SLEEP = 0xB9, // Enter sleep mode
+    FRAM_OPCODE_RDID = 0x9F // Read device ID
 } FRAM_Opcode_TypeDef;
 
 typedef enum {
