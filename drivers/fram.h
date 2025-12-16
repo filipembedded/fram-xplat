@@ -70,4 +70,4 @@ FRAM_Status_TypeDef FRAM_Read(FRAM_Instance_TypeDef *fram, uint32_t address, uin
  * @param data Pointer to the data buffer
  * @retval ::FRAM_Status_TypeDef
  */
-FRAM_Status_TypeDef FRAM_ReadStatusReg(FRAM_Instance_TypeDef *fram, uint8_t data);
+FRAM_Status_TypeDef FRAM_ReadStatusReg(FRAM_Instance_TypeDef *fram, uint8_t *data);

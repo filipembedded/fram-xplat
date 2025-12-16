@@ -84,10 +84,10 @@ FRAM_Status_TypeDef FRAM_Read(FRAM_Instance_TypeDef *fram, uint32_t address, uin
     return status;
 }
 
-FRAM_Status_TypeDef FRAM_ReadStatusReg(FRAM_Instance_TypeDef *fram, uint8_t data) {
+FRAM_Status_TypeDef FRAM_ReadStatusReg(FRAM_Instance_TypeDef *fram, uint8_t *data) {
     uint8_t cmd = FRAM_OPCODE_RDSR;
 
-    if ((fram == NULL)) {
+    if ((fram == NULL) || (data == NULL)) {
         return FRAM_STATUS_ERROR;
     }
 
@@ -97,7 +97,7 @@ FRAM_Status_TypeDef FRAM_ReadStatusReg(FRAM_Instance_TypeDef *fram, uint8_t data
         fram->spi_chip_deselect(fram->context);
         return FRAM_STATUS_ERROR;
     }
-    if (fram->spi_read(fram->context, &data, 1) != 0) {
+    if (fram->spi_read(fram->context, data, 1) != 0) {
         fram->spi_chip_deselect(fram->context);
         return FRAM_STATUS_ERROR;
     }
