@@ -26,9 +26,16 @@ FRAM_Status_TypeDef FRAM_Write(FRAM_Instance_TypeDef *fram, uint32_t address, ui
 
     // Write command and address
     cmd = FRAM_OPCODE_WRITE;
-    addr[0] = (uint8_t)((address >> 16) & 0x07U); // Upper 5 bits ignored
-    addr[1] = (uint8_t)((address >> 8) & 0xFFU);
-    addr[2] = (uint8_t)(address & 0xFFU);
+    
+    if (address < 65535U) { // 8Mbit = 1MB = 0xFFFFF
+        addr[0] = (uint8_t)((address >> 8) & 0xFFU);
+        addr[1] = (uint8_t)((address) & 0xFFU);    
+    } else {
+        // Read command and address
+        addr[0] = (uint8_t)((address >> 16) & 0x07U); // Upper 5 bits ignored
+        addr[1] = (uint8_t)((address >> 8) & 0xFFU);
+        addr[2] = (uint8_t)(address & 0xFFU);
+    }
 
     // Send Write sequence
     fram->spi_chip_select(fram->context);
@@ -57,13 +64,18 @@ FRAM_Status_TypeDef FRAM_Read(FRAM_Instance_TypeDef *fram, uint32_t address, uin
     if ((fram == NULL) || (data == NULL) || (size == 0U)) {
         return FRAM_STATUS_ERROR;
     }
-
-    // Read command and address
+    
     uint8_t cmd = FRAM_OPCODE_READ;
-    addr[0] = (uint8_t)((address >> 16) & 0x07U); // Upper 5 bits ignored
-    addr[1] = (uint8_t)((address >> 8) & 0xFFU);
-    addr[2] = (uint8_t)(address & 0xFFU);
-
+    
+    if (address < 65535U) { // 8Mbit = 1MB = 0xFFFFF
+        addr[0] = (uint8_t)((address >> 8) & 0xFFU);
+        addr[1] = (uint8_t)((address) & 0xFFU);    
+    } else {
+        // Read command and address
+        addr[0] = (uint8_t)((address >> 16) & 0x07U); // Upper 5 bits ignored
+        addr[1] = (uint8_t)((address >> 8) & 0xFFU);
+        addr[2] = (uint8_t)(address & 0xFFU);
+    }
     // Send Read sequence
     fram->spi_chip_select(fram->context);
 
